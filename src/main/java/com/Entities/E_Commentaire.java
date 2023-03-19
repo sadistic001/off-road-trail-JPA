@@ -20,7 +20,7 @@ public class E_Commentaire {
     private String text;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", name = "id_inscription", nullable = true)
-    private E_Inscription idInscription;
+    private E_Inscription inscription;
     @Basic
     @Column(name = "point_geo", nullable = true)
     private Integer pointGeo;
@@ -32,6 +32,7 @@ public class E_Commentaire {
     private String auteur;
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,7 +42,7 @@ public class E_Commentaire {
 
         if (id != that.id) return false;
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (idInscription != null ? !idInscription.equals(that.idInscription) : that.idInscription != null)
+        if (inscription != null ? !inscription.equals(that.inscription) : that.inscription != null)
             return false;
         if (pointGeo != null ? !pointGeo.equals(that.pointGeo) : that.pointGeo != null) return false;
         if (dateHeure != null ? !dateHeure.equals(that.dateHeure) : that.dateHeure != null) return false;
@@ -54,7 +55,7 @@ public class E_Commentaire {
     public int hashCode() {
         int result = id;
         result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (idInscription != null ? idInscription.hashCode() : 0);
+        result = 31 * result + (inscription != null ? inscription.hashCode() : 0);
         result = 31 * result + (pointGeo != null ? pointGeo.hashCode() : 0);
         result = 31 * result + (dateHeure != null ? dateHeure.hashCode() : 0);
         result = 31 * result + (auteur != null ? auteur.hashCode() : 0);

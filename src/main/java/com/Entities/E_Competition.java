@@ -10,7 +10,10 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "E_Competition.getAllCompetitions", query = "SELECT c FROM E_Competition c"),
         @NamedQuery(name = "E_Competition.getCompetitionByID", query = "SELECT c FROM E_Competition c " +
-                "WHERE c.id = :idCompet")
+                "WHERE c.id = :idCompet"),
+        // Permet la distance totale d'une categorie
+        @NamedQuery(name = "E_Competition.getCompetitionTotalDistance", query = "SELECT SUM(c.distance) FROM E_Course c " +
+                "WHERE c.competition.id = :idCompet")
 })
 public class E_Competition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,23 +35,17 @@ public class E_Competition {
     @Basic
     @Column(name = "adresse_pc_course", nullable = true, length = 255)
     private String adressePcCourse;
+    @OneToMany(mappedBy = "competition")
+    private Set<E_Course> courses;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         E_Competition that = (E_Competition) o;
-
-        if (id != that.id) return false;
-        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
-        if (dateDebut != null ? !dateDebut.equals(that.dateDebut) : that.dateDebut != null) return false;
-        if (dateMaxFin != null ? !dateMaxFin.equals(that.dateMaxFin) : that.dateMaxFin != null) return false;
-        if (client != null ? !client.equals(that.client) : that.client != null) return false;
-        if (adressePcCourse != null ? !adressePcCourse.equals(that.adressePcCourse) : that.adressePcCourse != null)
-            return false;
-
-        return true;
+        return id == that.id && nom.equals(that.nom) && dateDebut.equals(that.dateDebut)
+                && dateMaxFin.equals(that.dateMaxFin) && client.equals(that.client) &&
+                adressePcCourse.equals(that.adressePcCourse) && courses.equals(that.courses);
     }
 
     @Override

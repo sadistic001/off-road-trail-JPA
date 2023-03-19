@@ -12,10 +12,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NamedQueries({
+        // Permet d'obtenir toutes les courses d'une competition
         @NamedQuery(name = "E_Course.getCoursesByCompetitionID", query = "SELECT c FROM E_Course c " +
                 "WHERE c.competition.id = :idCompet"),
-        @NamedQuery(name = "E_Course.getCompetitionTotalDistance", query = "SELECT SUM(c.distance) FROM E_Course c " +
-                "WHERE c.competition.id = :idCompet")
+        @NamedQuery(name = "E_Course.getCompetitionsByCategorie", query = "SELECT c FROM E_Course c " +
+                "JOIN c.categories cat WHERE cat.id = :idCategorie")
 })
 public class E_Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

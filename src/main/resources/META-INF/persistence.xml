@@ -23,6 +23,8 @@
         <class>com.Entities.E_Troncon</class>
         <class>com.Entities.E_TypePoint</class>
         <class>com.Entities.E_EtatInscriptions</class>
+        <class>com.Entities.E_CommentaireHashtag</class>
+        <class>com.Entities.E_Hashtag</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/offroad_BSM"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
