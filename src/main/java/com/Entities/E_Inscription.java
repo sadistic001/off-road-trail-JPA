@@ -1,101 +1,43 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Inscription", schema = "offroad_BSM", catalog = "")
 public class E_Inscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private int id;
-    @Basic
-    @Column(name = "id_course", nullable = true)
-    private Integer idCourse;
-    @Basic
-    @Column(name = "id_coureur", nullable = true)
-    private Integer idCoureur;
-    @Basic
-    @Column(name = "id_categorie", nullable = true)
-    private Integer idCategorie;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_course", referencedColumnName = "id")
+    private E_Course course;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_coureur", referencedColumnName = "id")
+    private E_Coureur coureur;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_categorie", referencedColumnName = "id")
+    private E_CategorieFfa categorie;
     @Basic
     @Column(name = "etat", nullable = true, length = 255)
     private String etat;
     @Basic
     @Column(name = "dossard", nullable = true, length = 255)
     private String dossard;
-    @Basic
-    @Column(name = "bracelet", nullable = true)
-    private Integer bracelet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bracelet", referencedColumnName = "id")
+    private E_Bracelet bracelet;
     @Basic
     @Column(name = "date_inscription", nullable = true)
     private Timestamp dateInscription;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getIdCourse() {
-        return idCourse;
-    }
-
-    public void setIdCourse(Integer idCourse) {
-        this.idCourse = idCourse;
-    }
-
-    public Integer getIdCoureur() {
-        return idCoureur;
-    }
-
-    public void setIdCoureur(Integer idCoureur) {
-        this.idCoureur = idCoureur;
-    }
-
-    public Integer getIdCategorie() {
-        return idCategorie;
-    }
-
-    public void setIdCategorie(Integer idCategorie) {
-        this.idCategorie = idCategorie;
-    }
-
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
-
-    public String getDossard() {
-        return dossard;
-    }
-
-    public void setDossard(String dossard) {
-        this.dossard = dossard;
-    }
-
-    public Integer getBracelet() {
-        return bracelet;
-    }
-
-    public void setBracelet(Integer bracelet) {
-        this.bracelet = bracelet;
-    }
-
-    public Timestamp getDateInscription() {
-        return dateInscription;
-    }
-
-    public void setDateInscription(Timestamp dateInscription) {
-        this.dateInscription = dateInscription;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -105,9 +47,9 @@ public class E_Inscription {
         E_Inscription that = (E_Inscription) o;
 
         if (id != that.id) return false;
-        if (idCourse != null ? !idCourse.equals(that.idCourse) : that.idCourse != null) return false;
-        if (idCoureur != null ? !idCoureur.equals(that.idCoureur) : that.idCoureur != null) return false;
-        if (idCategorie != null ? !idCategorie.equals(that.idCategorie) : that.idCategorie != null) return false;
+        if (course != null ? !course.equals(that.course) : that.course != null) return false;
+        if (coureur != null ? !coureur.equals(that.coureur) : that.coureur != null) return false;
+        if (categorie != null ? !categorie.equals(that.categorie) : that.categorie != null) return false;
         if (etat != null ? !etat.equals(that.etat) : that.etat != null) return false;
         if (dossard != null ? !dossard.equals(that.dossard) : that.dossard != null) return false;
         if (bracelet != null ? !bracelet.equals(that.bracelet) : that.bracelet != null) return false;
@@ -120,9 +62,9 @@ public class E_Inscription {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (idCourse != null ? idCourse.hashCode() : 0);
-        result = 31 * result + (idCoureur != null ? idCoureur.hashCode() : 0);
-        result = 31 * result + (idCategorie != null ? idCategorie.hashCode() : 0);
+        result = 31 * result + (course != null ? course.hashCode() : 0);
+        result = 31 * result + (coureur != null ? coureur.hashCode() : 0);
+        result = 31 * result + (categorie != null ? categorie.hashCode() : 0);
         result = 31 * result + (etat != null ? etat.hashCode() : 0);
         result = 31 * result + (dossard != null ? dossard.hashCode() : 0);
         result = 31 * result + (bracelet != null ? bracelet.hashCode() : 0);

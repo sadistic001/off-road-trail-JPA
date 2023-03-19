@@ -1,9 +1,13 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Bracelet", schema = "offroad_BSM", catalog = "")
+@Getter
+@Setter
 public class E_Bracelet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -15,30 +19,6 @@ public class E_Bracelet {
     @Basic
     @Column(name = "est_disponible", nullable = true)
     private Byte estDisponible;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getRfid() {
-        return rfid;
-    }
-
-    public void setRfid(Integer rfid) {
-        this.rfid = rfid;
-    }
-
-    public Byte getEstDisponible() {
-        return estDisponible;
-    }
-
-    public void setEstDisponible(Byte estDisponible) {
-        this.estDisponible = estDisponible;
-    }
 
     @Override
     public boolean equals(Object o) {

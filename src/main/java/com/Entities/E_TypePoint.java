@@ -1,9 +1,13 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TypePoint", schema = "offroad_BSM", catalog = "")
+@Getter
+@Setter
 public class E_TypePoint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -12,22 +16,6 @@ public class E_TypePoint {
     @Basic
     @Column(name = "label", nullable = true, length = 255)
     private String label;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     @Override
     public boolean equals(Object o) {

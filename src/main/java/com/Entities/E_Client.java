@@ -3,6 +3,8 @@ package com.Entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Client", schema = "offroad_BSM", catalog = "")
 @Data

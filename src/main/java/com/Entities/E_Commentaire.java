@@ -1,11 +1,15 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Commentaire", schema = "offroad_BSM", catalog = "")
+@Setter
+@Getter
 public class E_Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -14,9 +18,9 @@ public class E_Commentaire {
     @Basic
     @Column(name = "text", nullable = true, length = 255)
     private String text;
-    @Basic
-    @Column(name = "id_inscription", nullable = true)
-    private Integer idInscription;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "id_inscription", nullable = true)
+    private E_Inscription idInscription;
     @Basic
     @Column(name = "point_geo", nullable = true)
     private Integer pointGeo;
@@ -27,53 +31,6 @@ public class E_Commentaire {
     @Column(name = "auteur", nullable = true, length = 255)
     private String auteur;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Integer getIdInscription() {
-        return idInscription;
-    }
-
-    public void setIdInscription(Integer idInscription) {
-        this.idInscription = idInscription;
-    }
-
-    public Integer getPointGeo() {
-        return pointGeo;
-    }
-
-    public void setPointGeo(Integer pointGeo) {
-        this.pointGeo = pointGeo;
-    }
-
-    public Timestamp getDateHeure() {
-        return dateHeure;
-    }
-
-    public void setDateHeure(Timestamp dateHeure) {
-        this.dateHeure = dateHeure;
-    }
-
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
 
     @Override
     public boolean equals(Object o) {
