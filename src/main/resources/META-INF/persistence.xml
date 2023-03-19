@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="default">
+
+        <class>com.Entities.E_Coureur</class>
+        <class>com.Entities.E_Client</class>
+        <class>com.Entities.E_Contact</class>
+        <class>com.Entities.E_Bracelet</class>
+        <class>com.Entities.E_CategorieFfa</class>
+        <class>com.Entities.E_Commentaire</class>
+        <class>com.Entities.E_Competition</class>
+        <class>com.Entities.E_Course</class>
+        <class>com.Entities.E_Equipement</class>
+        <class>com.Entities.E_Inscription</class>
+        <class>com.Entities.E_Nature</class>
+        <class>com.Entities.E_Ouvrir</class>
+        <class>com.Entities.E_Passage</class>
+        <class>com.Entities.E_Photo</class>
+        <class>com.Entities.E_PointGeographique</class>
+        <class>com.Entities.E_Troncon</class>
+        <class>com.Entities.E_TypePoint</class>
+        <class>com.Entities.E_EtatInscriptions</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/offroad_BSM"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="mouad"/>
+            <property name="hibernate.connection.password" value="mysql"/>
+        </properties>
+    </persistence-unit>
+</persistence>
