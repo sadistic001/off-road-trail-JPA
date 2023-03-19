@@ -1,5 +1,6 @@
 package com.test.JPQL;
 
+import com.Entities.E_Commentaire;
 import com.Entities.E_Competition;
 import com.Entities.E_Coureur;
 import com.Utils.JPQL.JPQLUtils;
@@ -19,6 +20,16 @@ public class Main {
         for (E_Coureur coureur: coureurs) {
             System.out.println(coureur);
         }
+
+       List<E_Commentaire> comments = JPQLUtils.getCommentaireByHashtag("ultramarathon", em);
+        System.out.println("On affiche maintenant tous les commentaires avec le hashtag 'ultramarathon");
+        System.out.println("le nombre des commentaires : "+ comments.size());
+        for (E_Commentaire comment : comments) {
+            System.out.println("commentaire : "+ comment.getText());
+        }
+
+
+
         em.close();
 
 

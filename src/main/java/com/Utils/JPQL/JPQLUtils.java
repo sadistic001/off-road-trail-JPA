@@ -1,5 +1,6 @@
 package com.Utils.JPQL;
 
+import com.Entities.E_Commentaire;
 import com.Entities.E_Competition;
 import com.Entities.E_Coureur;
 import jakarta.persistence.EntityManager;
@@ -31,5 +32,11 @@ public class JPQLUtils {
                 "AND cat.ageMin <= ( FUNCTION('YEAR', CURRENT_DATE) - FUNCTION('YEAR', c.dateNaissance))");
        query.setParameter("idCategory", idCategory);
        return query.getResultList();
+    }
+
+    public static List<E_Commentaire> getCommentaireByHashtag(String hashtag, EntityManager em){
+        Query query= em.createNamedQuery("E_Commentaire.getCommentairesByHashtag");
+        query.setParameter("hashtag", hashtag);
+        return query.getResultList();
     }
 }

@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "Commentaire", schema = "offroad_BSM", catalog = "")
 @Setter
 @Getter
+@NamedQuery(name = "E_Commentaire.getCommentairesByHashtag", query = "SELECT comm " +
+        "FROM E_Commentaire comm JOIN comm.hashtag h WHERE h.hashtag = :hashtag")
 public class E_Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -30,6 +33,11 @@ public class E_Commentaire {
     @Basic
     @Column(name = "auteur", nullable = true, length = 255)
     private String auteur;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Commentaire_hashtag",
+            joinColumns = @JoinColumn(name = "commentaire"),
+            inverseJoinColumns = @JoinColumn(name = "hashtag"))
+    private Set<E_Hashtag> hashtag;
 
 
 
@@ -49,6 +57,19 @@ public class E_Commentaire {
         if (auteur != null ? !auteur.equals(that.auteur) : that.auteur != null) return false;
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "E_Commentaire{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", inscription=" + inscription +
+                ", pointGeo=" + pointGeo +
+                ", dateHeure=" + dateHeure +
+                ", auteur='" + auteur + '\'' +
+                ", hashtag=" + hashtag +
+                '}';
     }
 
     @Override

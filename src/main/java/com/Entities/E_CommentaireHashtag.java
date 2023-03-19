@@ -1,35 +1,26 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "Commentaire_hashtag", schema = "offroad_BSM", catalog = "")
 @IdClass(E_CommentaireHashtagPK.class)
+@Getter
+@Setter
 public class E_CommentaireHashtag {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "commentaire", nullable = true)
+    private E_Commentaire commentaire;
     @Id
-    @Column(name = "commentaire", nullable = false)
-    private int commentaire;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "hashtag", nullable = false)
-    private int hashtag;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "hashtag", nullable = true)
+    private E_Hashtag hashtag;
 
-    public int getCommentaire() {
-        return commentaire;
-    }
-
-    public void setCommentaire(int commentaire) {
-        this.commentaire = commentaire;
-    }
-
-    public int getHashtag() {
-        return hashtag;
-    }
-
-    public void setHashtag(int hashtag) {
-        this.hashtag = hashtag;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -46,8 +37,6 @@ public class E_CommentaireHashtag {
 
     @Override
     public int hashCode() {
-        int result = commentaire;
-        result = 31 * result + hashtag;
-        return result;
+        return Objects.hash(commentaire, hashtag);
     }
 }
