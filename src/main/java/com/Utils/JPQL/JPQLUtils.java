@@ -25,13 +25,13 @@ public class JPQLUtils {
         return (double) query.getSingleResult();
     }
 
-    public static List<E_Coureur> getAllCoureurInACategory(int idCategory, EntityManager em){
-        Query query = em.createQuery("SELECT c FROM E_Coureur c, E_CategorieFfa cat " +
+    public static int getAllCoureurInACategory(int idCategory, EntityManager em){
+        Query query = em.createQuery("SELECT COUNT(c) FROM E_Coureur c, E_CategorieFfa cat " +
                 "WHERE cat.id = :idCategory AND cat.ageMax >= ( FUNCTION('YEAR', CURRENT_DATE) - " +
                 "FUNCTION('YEAR', c.dateNaissance))" +
                 "AND cat.ageMin <= ( FUNCTION('YEAR', CURRENT_DATE) - FUNCTION('YEAR', c.dateNaissance))");
        query.setParameter("idCategory", idCategory);
-       return query.getResultList();
+       return (int) query.getSingleResult();
     }
 
     public static List<E_Commentaire> getCommentaireByHashtag(String hashtag, EntityManager em){

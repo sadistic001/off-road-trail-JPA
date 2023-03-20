@@ -15,11 +15,7 @@ public class Main {
         System.out.println("distance maximale de la course 1 : " + JPQLUtils.competionTotatleDistance(1, em));
 
         System.out.println("On affiche maintenant tous les joeurs appartenants à une catégorie");
-        List<E_Coureur> coureurs = JPQLUtils.getAllCoureurInACategory(1, em);
-        System.out.println("le nombre des coureurs : "+ coureurs.size());
-        for (E_Coureur coureur: coureurs) {
-            System.out.println(coureur);
-        }
+        System.out.println("le nombre des coureurs : "+ JPQLUtils.getAllCoureurInACategory(1, em));
 
        List<E_Commentaire> comments = JPQLUtils.getCommentaireByHashtag("ultramarathon", em);
         System.out.println("On affiche maintenant tous les commentaires avec le hashtag 'ultramarathon");

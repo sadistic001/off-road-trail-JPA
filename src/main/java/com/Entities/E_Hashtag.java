@@ -1,8 +1,10 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "Hashtag", schema = "offroad_BSM", catalog = "")
 public class E_Hashtag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,22 +14,6 @@ public class E_Hashtag {
     @Basic
     @Column(name = "hashtag", nullable = true, length = 45)
     private String hashtag;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getHashtag() {
-        return hashtag;
-    }
-
-    public void setHashtag(String hashtag) {
-        this.hashtag = hashtag;
-    }
 
     @Override
     public boolean equals(Object o) {
