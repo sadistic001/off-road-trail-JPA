@@ -16,7 +16,9 @@ import java.util.Set;
         @NamedQuery(name = "E_Course.getCoursesByCompetitionID", query = "SELECT c FROM E_Course c " +
                 "WHERE c.competition.id = :idCompet"),
         @NamedQuery(name = "E_Course.getCompetitionsByCategorie", query = "SELECT c FROM E_Course c " +
-                "JOIN c.categories cat WHERE cat.id = :idCategorie")
+                "JOIN c.categories cat WHERE cat.id = :idCategorie"),
+        @NamedQuery( name = "E_Course.terminerCourse", query = "UPDATE E_Course c " +
+                "SET c.terminee = true WHERE c.id = :idCourse")
 })
 public class E_Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +37,10 @@ public class E_Course {
     @Basic
     @Column(name = "duree_max", nullable = true, precision = 0)
     private Double dureeMax;
+
+    @Basic
+    @Column(name = "terminee", nullable = true)
+    private boolean terminee;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", name = "id_competition", nullable = true)
     private E_Competition competition;
