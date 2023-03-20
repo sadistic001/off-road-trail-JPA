@@ -1,9 +1,13 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Troncon", schema = "offroad_BSM", catalog = "")
+@Setter
+@Getter
 public class E_Troncon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -12,77 +16,23 @@ public class E_Troncon {
     @Basic
     @Column(name = "numero", nullable = true)
     private Integer numero;
-    @Basic
-    @Column(name = "point_depart", nullable = true)
-    private Integer pointDepart;
-    @Basic
-    @Column(name = "point_arrivee", nullable = true)
-    private Integer pointArrivee;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "point_depart", nullable = true)
+    private E_PointGeographique pointDepart;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "point_arrivee", nullable = true)
+    private E_PointGeographique pointArrivee;
     @Basic
     @Column(name = "delai_max", nullable = true, precision = 0)
     private Double delaiMax;
     @Basic
     @Column(name = "duree_alerte", nullable = true, precision = 0)
     private Double dureeAlerte;
-    @Basic
-    @Column(name = "id_course", nullable = true)
-    private Integer idCourse;
 
-    public int getId() {
-        return id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "id_course", nullable = false)
+    private E_Course course;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public Integer getPointDepart() {
-        return pointDepart;
-    }
-
-    public void setPointDepart(Integer pointDepart) {
-        this.pointDepart = pointDepart;
-    }
-
-    public Integer getPointArrivee() {
-        return pointArrivee;
-    }
-
-    public void setPointArrivee(Integer pointArrivee) {
-        this.pointArrivee = pointArrivee;
-    }
-
-    public Double getDelaiMax() {
-        return delaiMax;
-    }
-
-    public void setDelaiMax(Double delaiMax) {
-        this.delaiMax = delaiMax;
-    }
-
-    public Double getDureeAlerte() {
-        return dureeAlerte;
-    }
-
-    public void setDureeAlerte(Double dureeAlerte) {
-        this.dureeAlerte = dureeAlerte;
-    }
-
-    public Integer getIdCourse() {
-        return idCourse;
-    }
-
-    public void setIdCourse(Integer idCourse) {
-        this.idCourse = idCourse;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -100,7 +50,7 @@ public class E_Troncon {
         if (delaiMax != null ? !delaiMax.equals(eTroncon.delaiMax) : eTroncon.delaiMax != null) return false;
         if (dureeAlerte != null ? !dureeAlerte.equals(eTroncon.dureeAlerte) : eTroncon.dureeAlerte != null)
             return false;
-        if (idCourse != null ? !idCourse.equals(eTroncon.idCourse) : eTroncon.idCourse != null) return false;
+        if (course != null ? !course.equals(eTroncon.course) : eTroncon.course != null) return false;
 
         return true;
     }
@@ -113,7 +63,7 @@ public class E_Troncon {
         result = 31 * result + (pointArrivee != null ? pointArrivee.hashCode() : 0);
         result = 31 * result + (delaiMax != null ? delaiMax.hashCode() : 0);
         result = 31 * result + (dureeAlerte != null ? dureeAlerte.hashCode() : 0);
-        result = 31 * result + (idCourse != null ? idCourse.hashCode() : 0);
+        result = 31 * result + (course != null ? course.hashCode() : 0);
         return result;
     }
 }

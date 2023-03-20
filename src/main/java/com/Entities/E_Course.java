@@ -1,11 +1,23 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "Course", schema = "offroad_BSM", catalog = "")
+@Getter
+@Setter
+@NamedQueries({
+        // Permet d'obtenir toutes les courses d'une competition
+        @NamedQuery(name = "E_Course.getCoursesByCompetitionID", query = "SELECT c FROM E_Course c " +
+                "WHERE c.competition.id = :idCompet"),
+        @NamedQuery(name = "E_Course.getCompetitionsByCategorie", query = "SELECT c FROM E_Course c " +
+                "JOIN c.categories cat WHERE cat.id = :idCategorie")
+})
 public class E_Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -23,90 +35,24 @@ public class E_Course {
     @Basic
     @Column(name = "duree_max", nullable = true, precision = 0)
     private Double dureeMax;
-    @Basic
-    @Column(name = "id_competition", nullable = true)
-    private Integer idCompetition;
-    @Basic
-    @Column(name = "nature_course", nullable = true)
-    private Integer natureCourse;
-    @Basic
-    @Column(name = "point_depart", nullable = true)
-    private Integer pointDepart;
-    @Basic
-    @Column(name = "point_arrivee", nullable = true)
-    private Integer pointArrivee;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "id_competition", nullable = true)
+    private E_Competition competition;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "nature_course", nullable = true)
+    private E_Nature natureCourse;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "point_depart", nullable = true)
+    private E_PointGeographique pointDepart;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "point_arrivee", nullable = true)
+    private E_PointGeographique pointArrivee;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public Timestamp getHeureDepart() {
-        return heureDepart;
-    }
-
-    public void setHeureDepart(Timestamp heureDepart) {
-        this.heureDepart = heureDepart;
-    }
-
-    public Double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Double distance) {
-        this.distance = distance;
-    }
-
-    public Double getDureeMax() {
-        return dureeMax;
-    }
-
-    public void setDureeMax(Double dureeMax) {
-        this.dureeMax = dureeMax;
-    }
-
-    public Integer getIdCompetition() {
-        return idCompetition;
-    }
-
-    public void setIdCompetition(Integer idCompetition) {
-        this.idCompetition = idCompetition;
-    }
-
-    public Integer getNatureCourse() {
-        return natureCourse;
-    }
-
-    public void setNatureCourse(Integer natureCourse) {
-        this.natureCourse = natureCourse;
-    }
-
-    public Integer getPointDepart() {
-        return pointDepart;
-    }
-
-    public void setPointDepart(Integer pointDepart) {
-        this.pointDepart = pointDepart;
-    }
-
-    public Integer getPointArrivee() {
-        return pointArrivee;
-    }
-
-    public void setPointArrivee(Integer pointArrivee) {
-        this.pointArrivee = pointArrivee;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Ouvrir",
+            joinColumns = @JoinColumn(name = "course"),
+            inverseJoinColumns = @JoinColumn(name = "categorie"))
+    private Set<E_CategorieFfa> categories;
 
     @Override
     public boolean equals(Object o) {
@@ -120,7 +66,7 @@ public class E_Course {
         if (heureDepart != null ? !heureDepart.equals(eCourse.heureDepart) : eCourse.heureDepart != null) return false;
         if (distance != null ? !distance.equals(eCourse.distance) : eCourse.distance != null) return false;
         if (dureeMax != null ? !dureeMax.equals(eCourse.dureeMax) : eCourse.dureeMax != null) return false;
-        if (idCompetition != null ? !idCompetition.equals(eCourse.idCompetition) : eCourse.idCompetition != null)
+        if (competition != null ? !competition.equals(eCourse.competition) : eCourse.competition != null)
             return false;
         if (natureCourse != null ? !natureCourse.equals(eCourse.natureCourse) : eCourse.natureCourse != null)
             return false;
@@ -138,7 +84,7 @@ public class E_Course {
         result = 31 * result + (heureDepart != null ? heureDepart.hashCode() : 0);
         result = 31 * result + (distance != null ? distance.hashCode() : 0);
         result = 31 * result + (dureeMax != null ? dureeMax.hashCode() : 0);
-        result = 31 * result + (idCompetition != null ? idCompetition.hashCode() : 0);
+        result = 31 * result + (competition != null ? competition.hashCode() : 0);
         result = 31 * result + (natureCourse != null ? natureCourse.hashCode() : 0);
         result = 31 * result + (pointDepart != null ? pointDepart.hashCode() : 0);
         result = 31 * result + (pointArrivee != null ? pointArrivee.hashCode() : 0);

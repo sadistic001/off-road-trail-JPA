@@ -1,79 +1,35 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "Passage", schema = "offroad_BSM", catalog = "")
 public class E_Passage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private int id;
-    @Basic
-    @Column(name = "bracelet", nullable = true)
-    private Integer bracelet;
-    @Basic
-    @Column(name = "equipement", nullable = true)
-    private Integer equipement;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bracelet", referencedColumnName = "id", nullable = false)
+    private E_Bracelet bracelet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipement", referencedColumnName = "id", nullable = false)
+    private E_Equipement equipement;
     @Basic
     @Column(name = "heure", nullable = true)
     private Timestamp heure;
     @Basic
     @Column(name = "commentaire", nullable = true, length = 255)
     private String commentaire;
-    @Basic
-    @Column(name = "course", nullable = true)
-    private Integer course;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getBracelet() {
-        return bracelet;
-    }
-
-    public void setBracelet(Integer bracelet) {
-        this.bracelet = bracelet;
-    }
-
-    public Integer getEquipement() {
-        return equipement;
-    }
-
-    public void setEquipement(Integer equipement) {
-        this.equipement = equipement;
-    }
-
-    public Timestamp getHeure() {
-        return heure;
-    }
-
-    public void setHeure(Timestamp heure) {
-        this.heure = heure;
-    }
-
-    public String getCommentaire() {
-        return commentaire;
-    }
-
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
-    }
-
-    public Integer getCourse() {
-        return course;
-    }
-
-    public void setCourse(Integer course) {
-        this.course = course;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course", referencedColumnName = "id", nullable = false)
+    private E_Course course;
 
     @Override
     public boolean equals(Object o) {

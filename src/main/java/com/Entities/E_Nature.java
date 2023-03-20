@@ -1,9 +1,13 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Nature", schema = "offroad_BSM", catalog = "")
+@Getter
+@Setter
 public class E_Nature {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -15,30 +19,6 @@ public class E_Nature {
     @Basic
     @Column(name = "description", nullable = true, length = 255)
     private String description;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNature() {
-        return nature;
-    }
-
-    public void setNature(String nature) {
-        this.nature = nature;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public boolean equals(Object o) {

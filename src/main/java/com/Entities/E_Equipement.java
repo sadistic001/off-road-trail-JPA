@@ -1,11 +1,15 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Equipement", schema = "offroad_BSM", catalog = "")
+@Getter
+@Setter
 public class E_Equipement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,37 +25,6 @@ public class E_Equipement {
     @Column(name = "date_debut_service", nullable = true)
     private Timestamp dateDebutService;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNumeroDeSerie() {
-        return numeroDeSerie;
-    }
-
-    public void setNumeroDeSerie(String numeroDeSerie) {
-        this.numeroDeSerie = numeroDeSerie;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Timestamp getDateDebutService() {
-        return dateDebutService;
-    }
-
-    public void setDateDebutService(Timestamp dateDebutService) {
-        this.dateDebutService = dateDebutService;
-    }
 
     @Override
     public boolean equals(Object o) {

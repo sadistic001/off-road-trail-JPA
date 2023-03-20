@@ -10,9 +10,8 @@ import jakarta.persistence.Persistence;
 import java.sql.Timestamp;
 
 public class Main {
-    final static String PERSISTENCE_UNIT_NAME = "default";
     public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager em = factory.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
 

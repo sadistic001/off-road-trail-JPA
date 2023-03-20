@@ -1,11 +1,18 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "Commentaire", schema = "offroad_BSM", catalog = "")
+@Setter
+@Getter
+@NamedQuery(name = "E_Commentaire.getCommentairesByHashtag", query = "SELECT comm " +
+        "FROM E_Commentaire comm JOIN comm.hashtag h WHERE h.hashtag = :hashtag")
 public class E_Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -14,9 +21,9 @@ public class E_Commentaire {
     @Basic
     @Column(name = "text", nullable = true, length = 255)
     private String text;
-    @Basic
-    @Column(name = "id_inscription", nullable = true)
-    private Integer idInscription;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "id_inscription", nullable = true)
+    private E_Inscription inscription;
     @Basic
     @Column(name = "point_geo", nullable = true)
     private Integer pointGeo;
@@ -26,54 +33,13 @@ public class E_Commentaire {
     @Basic
     @Column(name = "auteur", nullable = true, length = 255)
     private String auteur;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Commentaire_hashtag",
+            joinColumns = @JoinColumn(name = "commentaire"),
+            inverseJoinColumns = @JoinColumn(name = "hashtag"))
+    private Set<E_Hashtag> hashtag;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Integer getIdInscription() {
-        return idInscription;
-    }
-
-    public void setIdInscription(Integer idInscription) {
-        this.idInscription = idInscription;
-    }
-
-    public Integer getPointGeo() {
-        return pointGeo;
-    }
-
-    public void setPointGeo(Integer pointGeo) {
-        this.pointGeo = pointGeo;
-    }
-
-    public Timestamp getDateHeure() {
-        return dateHeure;
-    }
-
-    public void setDateHeure(Timestamp dateHeure) {
-        this.dateHeure = dateHeure;
-    }
-
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -84,7 +50,7 @@ public class E_Commentaire {
 
         if (id != that.id) return false;
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (idInscription != null ? !idInscription.equals(that.idInscription) : that.idInscription != null)
+        if (inscription != null ? !inscription.equals(that.inscription) : that.inscription != null)
             return false;
         if (pointGeo != null ? !pointGeo.equals(that.pointGeo) : that.pointGeo != null) return false;
         if (dateHeure != null ? !dateHeure.equals(that.dateHeure) : that.dateHeure != null) return false;
@@ -94,10 +60,23 @@ public class E_Commentaire {
     }
 
     @Override
+    public String toString() {
+        return "E_Commentaire{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", inscription=" + inscription +
+                ", pointGeo=" + pointGeo +
+                ", dateHeure=" + dateHeure +
+                ", auteur='" + auteur + '\'' +
+                ", hashtag=" + hashtag +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (idInscription != null ? idInscription.hashCode() : 0);
+        result = 31 * result + (inscription != null ? inscription.hashCode() : 0);
         result = 31 * result + (pointGeo != null ? pointGeo.hashCode() : 0);
         result = 31 * result + (dateHeure != null ? dateHeure.hashCode() : 0);
         result = 31 * result + (auteur != null ? auteur.hashCode() : 0);

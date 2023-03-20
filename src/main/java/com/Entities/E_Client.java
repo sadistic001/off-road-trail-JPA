@@ -3,6 +3,8 @@ package com.Entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Client", schema = "offroad_BSM", catalog = "")
 @Data
@@ -20,6 +22,8 @@ public class E_Client {
     @Basic
     @Column(name = "type_client", nullable = true, length = 255)
     private String typeClient;
+    @OneToMany(mappedBy = "client")
+    private Set<E_Contact> contacts;
 
     @Override
     public boolean equals(Object o) {

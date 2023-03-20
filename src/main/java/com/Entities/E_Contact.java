@@ -27,8 +27,8 @@ public class E_Contact {
     @Column(name = "description", nullable = true, length = 255)
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private E_Client idClient;
+    @JoinColumn(name = "id_client", referencedColumnName = "id")
+    private E_Client client;
 
     @Override
     public boolean equals(Object o) {
@@ -46,7 +46,7 @@ public class E_Contact {
             return false;
         if (description != null ? !description.equals(eContact.description) : eContact.description != null)
             return false;
-        if (idClient != null ? !idClient.equals(eContact.idClient) : eContact.idClient != null) return false;
+        if (client != null ? !client.equals(eContact.client) : eContact.client != null) return false;
 
         return true;
     }
@@ -59,7 +59,7 @@ public class E_Contact {
         result = 31 * result + (numeroTelephone != null ? numeroTelephone.hashCode() : 0);
         result = 31 * result + (adresseMail != null ? adresseMail.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
+        result = 31 * result + (client != null ? client.hashCode() : 0);
         return result;
     }
 
@@ -72,7 +72,7 @@ public class E_Contact {
                 ", numeroTelephone='" + numeroTelephone + '\'' +
                 ", adresseMail='" + adresseMail + '\'' +
                 ", description='" + description + '\'' +
-                ", idClient=" + idClient +
+                ", client=" + client +
                 '}';
     }
 }
