@@ -3,8 +3,9 @@ package com.Utils.JPQL;
 import com.Entities.E_Commentaire;
 import com.Entities.E_Competition;
 import com.Entities.E_Coureur;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
+import jakarta.persistence.*;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+@Log4j
 public class JPQLUtils {
 
 
@@ -38,5 +40,18 @@ public class JPQLUtils {
         Query query= em.createNamedQuery("E_Commentaire.getCommentairesByHashtag");
         query.setParameter("hashtag", hashtag);
         return query.getResultList();
+    }
+
+    public boolean terminerCourse(int idCourse, EntityManager em){
+        try {
+            Query query = em.createNamedQuery("E_Course.terminerCourse");
+            query.setParameter(":idCourse", idCourse);
+            return query.executeUpdate() > 0;
+        }
+        catch(PersistenceException  e){
+            System.out.println("Erreur de persistence : "+ e.getMessage()
+            + "cause : " + e.getCause());
+            return false;
+        }
     }
 }

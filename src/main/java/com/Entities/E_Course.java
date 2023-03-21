@@ -17,7 +17,8 @@ import java.util.Set;
                 "WHERE c.competition.id = :idCompet"),
         @NamedQuery(name = "E_Course.getCompetitionsByCategorie", query = "SELECT c FROM E_Course c " +
                 "JOIN c.categories cat WHERE cat.id = :idCategorie"),
-        @NamedQuery( name = "E_Course.terminerCourse", query = "UPDATE E_Coureur c SET c.terminee = true WHERE c.id : idCourse")
+        @NamedQuery( name = "E_Course.terminerCourse", query = "UPDATE E_Course c " +
+                "SET c.terminee = true WHERE c.id =: idCourse")
 })
 public class E_Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
