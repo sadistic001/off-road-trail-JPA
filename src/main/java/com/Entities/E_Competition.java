@@ -1,11 +1,13 @@
 package com.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "Competition", schema = "offroad_BSM", catalog = "")
 @NamedQueries({
         @NamedQuery(name = "E_Competition.getAllCompetitions", query = "SELECT c FROM E_Competition c"),
@@ -13,7 +15,9 @@ import java.util.Set;
                 "WHERE c.id = :idCompet"),
         // Permet la distance totale d'une categorie
         @NamedQuery(name = "E_Competition.getCompetitionTotalDistance", query = "SELECT SUM(c.distance) FROM E_Course c " +
-                "WHERE c.competition.id = :idCompet")
+                "WHERE c.competition.id = :idCompet"),
+        @NamedQuery(name = "E_Competition.getNombreCourses", query = "SELECT COUNT(c) FROM E_Course c " +
+                "WHERE c.competition.id = :idCompet"),
 })
 public class E_Competition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -26,7 +26,7 @@ abstract class JpaDAO<T> implements DAO<T> {
 
     @Override
     public T find(Class c, int id) {
-        String createQuery =  "SELECT c FROM "+c.getClass().getName()+" c WHERE c.id =" + id;
+        String createQuery =  "SELECT c FROM "+c.getName().substring(c.getName().lastIndexOf('.')+1)+" c WHERE c.id =" + id;
         Query query = em.createQuery(createQuery);
         return (T) query.getSingleResult();
     }
@@ -40,7 +40,24 @@ abstract class JpaDAO<T> implements DAO<T> {
 
     @Override
     public boolean update(T obj) {
-        return false;
+        try {
+            transaction.begin();
+            em.persist(obj);
+            transaction.commit();
+            return true;
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+
+            if (transaction != null)
+            {
+                transaction.rollback();
+            }
+            return false;
+        }
+
+
+
     }
 
     @Override

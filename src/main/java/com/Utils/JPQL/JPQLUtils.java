@@ -5,7 +5,6 @@ import com.Entities.E_Competition;
 import com.Entities.E_Coureur;
 import jakarta.persistence.*;
 import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-@Log4j
 public class JPQLUtils {
 
 
